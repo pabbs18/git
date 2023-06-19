@@ -1,0 +1,5 @@
+# spring:
+#   security:
+#     user:
+#       name: Basant
+#       password: Pwd1

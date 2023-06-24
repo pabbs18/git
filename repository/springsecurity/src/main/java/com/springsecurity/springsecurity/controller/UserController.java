@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.springsecurity.springsecurity.dto.LoginObject;
 import com.springsecurity.springsecurity.dto.UserDto;
 import com.springsecurity.springsecurity.entity.UserEntity;
+import com.springsecurity.springsecurity.service.JwtService;
 import com.springsecurity.springsecurity.service.UserService;
 
 @RestController
@@ -20,5 +22,10 @@ public class UserController {
     @PostMapping("/add")
     public String createUser( @RequestBody UserDto userDto){
         return userService.createUser(userDto);
+    }
+
+    @PostMapping("/authenticate")
+    public String generateJwString(@RequestBody LoginObject loginObject){
+        return userService.authenticateUser(loginObject);
     }
 }

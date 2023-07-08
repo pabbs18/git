@@ -15,10 +15,12 @@ import com.personalproject.orderservice.model.Order;
 import com.personalproject.orderservice.service.OrderService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api/order")
 @RequiredArgsConstructor
+@Slf4j
 public class OrderController {   
 
     private final OrderService orderService;
@@ -26,8 +28,13 @@ public class OrderController {
     @PostMapping("/create")
     @ResponseStatus(code = HttpStatus.CREATED)
     public String createOrder(@RequestBody OrderRequest orderRequest ){
-
-        return orderService.createOrder(orderRequest);
+        String orderStatus = null;
+        try {
+            orderStatus = orderService.createOrder(orderRequest);
+        } catch (IllegalAccessException e) {
+           log.error(e.getMessage());
+        }
+        return orderStatus;
     }
 
     @GetMapping("/getAll")
